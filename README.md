@@ -1,6 +1,7 @@
 ## GKE Private cluster
 To create private cluster in GKE, run
 ```bash
+export GOOGLE_APPLICATION_CREDENTIALS=<Path to your Google credentials json file>
 ./auto/create_private_gke_cluster.sh
 ```
 By default, it will take the default values in the script, you can also add the values to the environment variables below and run:
@@ -12,6 +13,7 @@ export ZONE=
 export SUBNETWORK=
 export SUBNETWORK_SECONDARY_RANGE_NAME=
 export SERVICE_ACCOUNT_EMAIL=
+export GOOGLE_APPLICATION_CREDENTIALS=<Path to your Google credentials json file>
 ./auto/create_private_gke_cluster.sh
 ```
 
