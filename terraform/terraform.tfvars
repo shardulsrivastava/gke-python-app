@@ -1,0 +1,7 @@
+project       = "data-services-asia-dev"
+region        = "asia-northeast1"
+location      = "asia-northeast1-a"
+network       = "reaasia-dataservices-dev-vpc"
+subnetwork    = "reaasia-dataservices-private-tokyo-dev-subnet"
+subnetwork_secondary_range_name = "gke-private-cluster-pods-561fbd26"
+service_account_email = "341208819623-compute@developer.gserviceaccount.com"

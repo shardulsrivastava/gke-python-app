@@ -1,0 +1,7 @@
+apiVersion: networking.gke.io/v1beta1
+kind: ManagedCertificate
+metadata:
+  name: dev-certificate
+spec:
+  domains:
+    - test.dataapi.rea-asia.com

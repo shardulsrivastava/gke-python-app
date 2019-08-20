@@ -1,0 +1,87 @@
+replicaCount: 1
+
+department: data-engineering
+image:
+  repository: asia.gcr.io/data-services-asia-dev/python-app
+  tag: latest
+  pullPolicy: Always
+container:
+  port: 8080
+  healthCheckUrl: /heartbeat
+  resources:
+    requests:
+      memory: 200Mi
+      cpu: 100m
+    limits:
+      memory: 512Mi
+      cpu: "1"
+  environments:
+    - name: WELCOME_TEXT
+      valueFrom:
+        configMapKeyRef:
+          name: index-page-configmap
+          key: welcome_text
+    - name: CLOUD_SQL_URI
+      valueFrom:
+        configMapKeyRef:
+          name: index-page-configmap
+          key: cloud_sql_uri
+    - name: CLOUD_SQL_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: cloud-sql-credentials
+          key: password
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8080
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: python-service-ip-address
+    networking.gke.io/managed-certificates: dev-certificate
+  hosts:
+    paths: /*
+    port: 80
+
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+secrets:
+  name: cloud-sql-credentials
+  data:
+    password: eHhyRHFFSUsxMDN3eHRQdQ==
+configMap:
+  name: index-page-configmap
+  data:
+    welcome_text: kubernetes
+    cloud_sql_uri: mysql://root@10.114.193.5:3306/mysql
+certificate:
+  name: dev-certificate
+  domains:
+    - test.dataapi.rea-asia.com

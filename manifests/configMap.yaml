@@ -1,0 +1,8 @@
+kind: ConfigMap 
+apiVersion: v1 
+metadata:
+  name: index-page-configmap
+  namespace: default
+data:
+  welcome_text: kubernetes
+  cloud_sql_uri: mysql://root@10.114.193.5:3306/mysql

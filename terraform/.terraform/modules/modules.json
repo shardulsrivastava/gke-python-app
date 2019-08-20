@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"","Source":"","Dir":"."},{"Key":"gke_cluster","Source":"github.com/gruntwork-io/terraform-google-gke.git//modules/gke-cluster?ref=v0.3.2","Dir":".terraform/modules/gke_cluster/modules/gke-cluster"}]}
