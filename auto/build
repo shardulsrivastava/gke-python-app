@@ -5,7 +5,18 @@ set -euxo pipefail
 cd $(dirname $0)/..
 
 echo "Building the docker image"
+
+OWNER="shardulsrivastava"
+REPO="gke-python-app"
 IMAGE_NAME=python-app:"${BUILDKITE_BUILD_NUMBER:-latest}"
 
+IMAGE_URL="docker.pkg.github.com/${OWNER}/${REPO}/${IMAGE_NAME}"
+
 docker build -t "${IMAGE_NAME}" -f Dockerfile .
+
+echo "Tagging Docker Image"
+docker tag "${IMAGE_NAME}" "${IMAGE_URL}"
+
+echo "Pushing the image to GitHub Package Registry"
+docker push "${IMAGE_URL}"
 
